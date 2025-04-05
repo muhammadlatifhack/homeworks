@@ -1,0 +1,67 @@
+import random
+import string
+
+def yosh_hisoblash():
+    ismingiz = input("Ismingizni kiriting: ")
+    tugilgan_yil = int(input("Tug'ilgan yilingizni kiriting: "))
+    joriy_yil = 2025  
+    yosh = joriy_yil - tugilgan_yil
+    print(f"{ismingiz}, sizning yoshingiz: {yosh} yosh.")
+
+def mashina_nomi_olish_1():
+    txt = 'LMaasleitbtui'
+    mashina_nomi = ''.join([i for i in txt if i.isupper()])
+    print(f"Birinci matndan mashina nomi: {mashina_nomi}")
+
+def mashina_nomi_olish_2():
+    txt = 'MsaatmiazD'
+    mashina_nomi = ''.join([i for i in txt if i.isupper()])
+    print(f"Ikkinchi matndan mashina nomi: {mashina_nomi}")
+
+def yashash_joyi_olish():
+    txt = "I'am John. I am from London"
+    joy = txt.split("from")[-1].strip()
+    print(f"Yashash joyingiz: {joy}")
+
+def matnni_teskari():
+    matn = input("Matn kiriting: ")
+    print(f"Teskari matn: {matn[::-1]}")
+
+def unli_sonini_hisoblash():
+    matn = input("Matn kiriting: ")
+    unlilar = "aeiouAEIOU"
+    unli_soni = sum(1 for i in matn if i in unlilar)
+    print(f"Unli harflar soni: {unli_soni}")
+
+def maksimal_qiymat():
+    sonlar = list(map(int, input("Sonlar ro'yxatini kiriting (bo'sh joy bilan ajratilgan): ").split()))
+    print(f"Maksimal qiymat: {max(sonlar)}")
+
+def palindromni_tekshirish():
+    soz = input("So'zni kiriting: ")
+    if soz == soz[::-1]:
+        print(f"{soz} palindrom.")
+    else:
+        print(f"{soz} palindrom emas.")
+
+def email_domeni():
+    email = input("Email manzilingizni kiriting: ")
+    domen = email.split('@')[-1]
+    print(f"Email domeni: {domen}")
+
+def tasodifiy_parol():
+    uzunlik = int(input("Parol uzunligini kiriting: "))
+    barcha_harflar = string.ascii_letters + string.digits + string.punctuation
+    parol = ''.join(random.choice(barcha_harflar) for i in range(uzunlik))
+    print(f"Tasodifiy parol: {parol}")
+
+yosh_hisoblash()
+mashina_nomi_olish_1()
+mashina_nomi_olish_2()
+yashash_joyi_olish()
+matnni_teskari()
+unli_sonini_hisoblash()
+maksimal_qiymat()
+palindromni_tekshirish()
+email_domeni()
+tasodifiy_parol()
