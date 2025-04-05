@@ -1,0 +1,58 @@
+
+def qoshish(a, b):
+    return a + b
+
+def ayirish(a, b):
+    return a - b
+
+def kopaytirish(a, b):
+    return a * b
+
+def bolish(a, b):
+    if b != 0:
+        return a / b
+    return 
+
+def teskari_qilish(s):
+    return s[::-1]
+
+def unli_harflar(s):
+    unli = "aeiouAEIOU"
+    return sum(1 for char in s if char in unli)
+
+import math
+
+def yuzani_hisoblash(radius):
+    return math.pi * radius ** 2
+
+def uzunlikni_hisoblash(radius):
+    return 2 * math.pi * radius
+
+def faylni_oqish(fayl_manzil):
+    try:
+        with open(fayl_manzil, 'r') as fayl:
+            return fayl.read()
+    except FileNotFoundError:
+        return 
+def faylga_yozish(fayl_manzil, mazmun):
+    with open(fayl_manzil, 'w') as fayl:
+        fayl.write(mazmun)
+
+from math_operations import qoshish, ayirish, kopaytirish, bolish
+from string_utils import teskari_qilish, unli_harflar
+from geometry import yuzani_hisoblash, uzunlikni_hisoblash
+from file_operations import faylni_oqish, faylga_yozish
+
+print(qoshish(5, 3))
+print(ayirish(5, 3))
+print(kopaytirish(5, 3))
+print(bolish(5, 0))
+
+print(teskari_qilish("goodbye"))
+print(unli_harflar("goodbye planet"))
+
+print(yuzani_hisoblash(7))
+print(uzunlikni_hisoblash(7))
+
+faylga_yozish('test_fayl.txt')
+print(faylni_oqish('test_fayl.txt'))
