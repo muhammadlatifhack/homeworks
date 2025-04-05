@@ -1,0 +1,33 @@
+import threading
+import math
+def tub_sonmi(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+def tub_sonlar_oraliq(start, end, tub_sonlar_royxati):
+    for son in range(start, end):
+        if tub_sonmi(son):
+            tub_sonlar_royxati.append(son)
+
+def kop_ipli_tub_sonlar_checker(start, end, iplar_soni):
+    iplar = []
+    tub_sonlar_royxati = []
+    oraliq_uzunligi = (end - start) // iplar_soni
+
+    for i in range(iplar_soni):
+        ip_start = start + i * oraliq_uzunligi
+        ip_end = start + (i + 1) * oraliq_uzunligi if i != iplar_soni - 1 else end
+        ip = threading.Thread(target=tub_sonlar_oraliq, args=(ip_start, ip_end, tub_sonlar_royxati))
+        iplar.append(ip)
+        ip.start()
+
+    for ip in iplar:
+        ip.join()
+    print("Topilgan tub sonlar:", tub_sonlar_royxati)
+start = 1
+end = 100
+iplar_soni = 4  
+kop_ipli_tub_sonlar_checker(start, end, iplar_soni)
