@@ -1,0 +1,42 @@
+import math
+
+def kvadrat_perimetr_ve_maydoni(burchak):
+    perimetr = 4 * burchak
+    maydon = burchak ** 2
+    return perimetr, maydon
+
+def doira_uzunligi(diametr):
+    uzunlik = math.pi * diametr
+    return uzunlik
+
+def o'rtacha(a, b):
+    return (a + b) / 2
+
+def sonlar_haqida(a, b):
+    yigindi = a + b
+    kopaytma = a * b
+    a_kvadrat = a ** 2
+    b_kvadrat = b ** 2
+    return yigindi, kopaytma, a_kvadrat, b_kvadrat
+
+
+
+burchak = 5
+perimetr, maydon = kvadrat_perimetr_ve_maydoni(burchak)
+print(f"Kvadratning perimetri: {perimetr}")
+print(f"Kvadratning maydoni: {maydon}")
+
+diametr = 10
+uzunlik = doira_uzunligi(diametr)
+print(f"Doira uzunligi: {uzunlik}")
+
+a = 8
+b = 12
+result = ortacha(a, b)
+print(f"A va B ning ortachasi: {result}")
+
+yigindi, kopaytma, a_kvadrat, b_kvadrat = sonlar_haqida(a, b)
+print(f"A va B ning yigindisi: {yigindi}")
+print(f"A va B ning kopaytmasi: {kopaytma}")
+print(f"A ning kvadrati: {a_kvadrat}")
+print(f"B ning kvadrati: {b_kvadrat}")
