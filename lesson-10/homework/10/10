@@ -1,0 +1,110 @@
+
+class Vazifa:
+    def __init__(self, nomi, tarif, muddat):
+        self.nomi = nomi
+        self.tarif = tarif
+        self.muddat = muddat
+        self.holat = False  
+
+class VazifalarRoyxati:
+    def __init__(self):
+        self.royxat = []
+
+    def qoshuv(self, vazifa):
+        self.royxat.append(vazifa)
+
+    def bajarildi_belgila(self, nomi):
+        for v in self.royxat:
+            if v.nomi == nomi:
+                v.holat = True
+
+    def barcha_korish(self):
+        for v in self.royxat:
+            print(f"Nomi: {v.nomi} | Holat: {'Bajarilgan' if v.holat else 'Bajarilmagan'}")
+
+    def bajarilmagan_korish(self):
+        for v in self.royxat:
+            if not v.holat:
+                print(f"Nomi: {v.nomi} | Tarifi: {v.tarif} | Muddat: {v.muddat}")
+
+todo = VazifalarRoyxati()
+todo.qoshuv(Vazifa("Python o‘rganish", "Har kuni kod yozish", "2025-04-10"))
+todo.qoshuv(Vazifa("Kitob o‘qish", "Kamida 20 bet", "2025-04-11"))
+
+todo.bajarildi_belgila("Python o‘rganish")
+
+print("Barcha vazifalar:")
+todo.barcha_korish()
+
+print("Bajarilmagan vazifalar:")
+todo.bajarilmagan_korish()
+
+class Post:
+    def __init__(self, nomi, matni, muallif):
+        self.nomi = nomi
+        self.matni = matni
+        self.muallif = muallif
+
+class Blog:
+    def __init__(self):
+        self.postlar = []
+
+    def post_qoshish(self, post):
+        self.postlar.append(post)
+
+    def barcha_postlar(self):
+        for p in self.postlar:
+            print(f"Sarlavha: {p.nomi} | Muallif: {p.muallif}")
+
+    def muallif_postlari(self, muallif):
+        for p in self.postlar:
+            if p.muallif == muallif:
+                print(f"Sarlavha: {p.nomi} | Matn: {p.matni}")
+
+blog = Blog()
+blog.post_qoshish(Post("Python nima?", "Python eng mashhur til", "Assadulla"))
+blog.post_qoshish(Post("Dasturlash foydasi", "O‘rganing va rivojlaning", "Ali"))
+
+print("Barcha postlar:")
+blog.barcha_postlar()
+
+print("Assadulla postlari:")
+blog.muallif_postlari("Assadulla")
+
+class Hisob:
+    def __init__(self, raqam, ism, balans):
+        self.raqam = raqam
+        self.ism = ism
+        self.balans = balans
+
+class Bank:
+    def __init__(self):
+        self.hisoblar = []
+
+    def hisob_qoshish(self, hisob):
+        self.hisoblar.append(hisob)
+
+    def balans_korish(self, raqam):
+        for h in self.hisoblar:
+            if h.raqam == raqam:
+                print(f"Hisob egasi: {h.ism} | Balans: {h.balans} so‘m")
+
+    def pul_tushirish(self, raqam, miqdor):
+        for h in self.hisoblar:
+            if h.raqam == raqam:
+                h.balans += miqdor
+
+    def pul_yechish(self, raqam, miqdor):
+        for h in self.hisoblar:
+            if h.raqam == raqam and h.balans >= miqdor:
+                h.balans -= miqdor
+
+bank = Bank()
+bank.hisob_qoshish(Hisob(1, "Assadulla", 100000))
+bank.hisob_qoshish(Hisob(2, "Ali", 50000))
+
+bank.pul_tushirish(1, 20000)
+bank.pul_yechish(2, 10000)
+
+bank.balans_korish(1)
+bank.balans_korish(2)
