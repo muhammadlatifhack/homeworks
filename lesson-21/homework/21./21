@@ -1,0 +1,78 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+malumot1 = {
+    'ID': [1,2,3,4,5,6,7,8,9,10],
+    'Matematika': [85,90,78,92,88,95,89,79,83,91],
+    'Ingliz_tili': [78,85,88,80,92,87,90,84,79,88],
+    'Fizika': [90,92,85,88,94,79,83,91,87,89]
+}
+
+df1 = pd.DataFrame(malumot1)
+
+df1['Ortacha'] = (df1['Matematika'] + df1['Ingliz_tili'] + df1['Fizika']) / 3
+
+eng_yaxshi = df1[df1['Ortacha'] == df1['Ortacha'].max()]
+
+df1['Umumiy'] = df1['Matematika'] + df1['Ingliz_tili'] + df1['Fizika']
+
+fanga_ortacha = {
+    'Matematika': df1['Matematika'].mean(),
+    'Ingliz_tili': df1['Ingliz_tili'].mean(),
+    'Fizika': df1['Fizika'].mean()
+}
+
+plt.bar(fanga_ortacha.keys(), fanga_ortacha.values())
+plt.show()
+
+
+malumot2 = {
+    'Sana': pd.date_range(start='2023-01-01', periods=10),
+    'Mahsulot_A': [120,150,130,110,140,160,135,125,145,155],
+    'Mahsulot_B': [90,110,100,80,95,105,98,88,102,112],
+    'Mahsulot_C': [75,80,85,70,88,92,78,82,87,90]
+}
+
+df2 = pd.DataFrame(malumot2)
+
+umumiy_sotuvlar = {
+    'A': df2['Mahsulot_A'].sum(),
+    'B': df2['Mahsulot_B'].sum(),
+    'C': df2['Mahsulot_C'].sum()
+}
+
+df2['Jami'] = df2['Mahsulot_A'] + df2['Mahsulot_B'] + df2['Mahsulot_C']
+eng_kop_sana = df2[df2['Jami'] == df2['Jami'].max()]
+
+df2['A_foiz'] = df2['Mahsulot_A'].pct_change() * 100
+df2['B_foiz'] = df2['Mahsulot_B'].pct_change() * 100
+df2['C_foiz'] = df2['Mahsulot_C'].pct_change() * 100
+
+plt.plot(df2['Sana'], df2['Mahsulot_A'], label='A')
+plt.plot(df2['Sana'], df2['Mahsulot_B'], label='B')
+plt.plot(df2['Sana'], df2['Mahsulot_C'], label='C')
+plt.legend()
+plt.show()
+
+
+malumot3 = {
+    'ID': [101,102,103,104,105,106,107,108,109,110],
+    'Ismi': ['Ali', 'Bobur', 'Jasur', 'Diyor', 'Olim', 'Farruh', 'Gulnoza', 'Husan', 'Ibrohim', 'Javlon'],
+    'Bo\'lim': ['HR','IT','Marketing','IT','Finance','HR','Marketing','IT','Finance','Marketing'],
+    'Maosh': [60000,75000,65000,80000,70000,72000,68000,78000,69000,76000],
+    'Tajriba': [3,5,2,8,4,6,3,7,2,5]
+}
+
+df3 = pd.DataFrame(malumot3)
+
+ortacha_maosh = df3.groupby('Bo\'lim')['Maosh'].mean()
+
+tajribali = df3[df3['Tajriba'] == df3['Tajriba'].max()]
+
+min_maosh = df3['Maosh'].min()
+df3['O\'sish'] = ((df3['Maosh'] - min_maosh) / min_maosh) * 100
+
+bolim_soni = df3['Bo\'lim'].value_counts()
+
+plt.bar(bolim_soni.index, bolim_soni.values)
+plt.show()
