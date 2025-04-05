@@ -1,0 +1,89 @@
+
+def uchinchi_meva():
+    mevalar = ['olma', 'banan', 'nok', 'apelsin', 'shaftoli']
+    print(f"Uchinchi meva: {mevalar[2]}")
+
+def ikki_royxatni_birlashtirish():
+    ro'yxat1 = [1, 2, 3]
+    ro'yxat2 = [4, 5, 6]
+    birlashtirilgan = ro'yxat1 + ro'yxat2
+    print(f"Birlashtirilgan ro'yxat: {birlashtirilgan}")
+
+def elementlarni_olish():
+    sonlar = [10, 20, 30, 40, 50]
+    olingan = [sonlar[0], sonlar[len(sonlar) // 2], sonlar[-1]]
+    print(f"Olingan elementlar: {olingan}")
+
+def royxatni_tuplega_aylantirish():
+    filmlar = ['Inception', 'Titanic', 'Avatar', 'The Dark Knight', 'Forrest Gump']
+    filmlar_tuple = tuple(filmlar)
+    print(f"Tupla: {filmlar_tuple}")
+
+def elementni_tekshirish():
+    shaharlar = ['London', 'Paris', 'New York', 'Tokyo']
+    print("Paris ro'yxatda bormi?", "Paris" in shaharlar)
+
+def royxatni_takrorlash():
+    sonlar = [1, 2, 3]
+    takrorlangan = sonlar * 2
+    print(f"Takrorlangan royxat: {takrorlangan}")
+
+def birinchi_oxirgi_almashish():
+    sonlar = [10, 20, 30, 40, 50]
+    sonlar[0], sonlar[-1] = sonlar[-1], sonlar[0]
+    print(f"Almashtirilgan royxat: {sonlar}")
+
+def tuple_slicing():
+    raqamlar = tuple(range(1, 11))
+    kesma = raqamlar[3:8]
+    print(f"Kesilgan tuple: {kesma}")
+
+def elementni_sanash():
+    ranglar = ['qizil', 'yashil', 'kok', 'kok', 'sariq']
+    print(f"Kok rangi {ranglar.count('kok')} marta takrorlangan.")
+
+def tuple_index():
+    hayvonlar = ('it', 'mushuk', 'quyon', 'baliq', 'leopar')
+    print(f"Leoparning indeksi: {hayvonlar.index('leopar')}")
+
+def ikki_tupleni_birlashtirish():
+    tuple1 = (1, 2, 3)
+    tuple2 = (4, 5, 6)
+    birlashtirilgan_tuple = tuple1 + tuple2
+    print(f"Birlashtirilgan tupla: {birlashtirilgan_tuple}")
+
+def uzunlikni_topish():
+    royxat = [1, 2, 3, 4, 5]
+    tupla = (6, 7, 8, 9, 10)
+    print(f"Ro'yxat uzunligi: {len(royxat)}")
+    print(f"Tupla uzunligi: {len(tupla)}")
+
+def tupleni_royxatga_aylantirish():
+    raqamlar_tuple = (1, 2, 3, 4, 5)
+    raqamlar_royxat = list(raqamlar_tuple)
+    print(f"Ro'yxatga aylantirilgan tupla: {raqamlar_royxat}")
+
+def maksimal_va_minimal():
+    sonlar_tuple = (10, 20, 30, 40, 50)
+    print(f"Maksimal qiymat: {max(sonlar_tuple)}")
+    print(f"Minimal qiymat: {min(sonlar_tuple)}")
+
+def tupleni_terse_chiqarish():
+    sozlar_tuple = ('olma', 'banan', 'nok', 'apelsin', 'shaftoli')
+    print(f"Teskari tupla: {so'zlar_tuple[::-1]}")
+
+uchinchi_meva()
+ikki_ro'yxatni_birlashtirish()
+elementlarni_olish()
+ro'yxatni_tuplega_aylantirish()
+elementni_tekshirish()
+ro'yxatni_takrorlash()
+birinchi_oxirgi_almashish()
+tuple_slicing()
+elementni_sanash()
+tuple_index()
+ikki_tupleni_birlashtirish()
+uzunlikni_topish()
+tupleni_royxatga_aylantirish()
+maksimal_va_minimal()
+tupleni_terse_chiqarish()
