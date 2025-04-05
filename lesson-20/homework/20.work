@@ -1,0 +1,40 @@
+import pandas as pd
+import sqlite3
+
+boglanish = sqlite3.connect("chinook.db")
+
+hisoblar = pd.read_sql_query("SELECT CustomerId, Total FROM Invoice", boglanish)
+
+mijoz_xaridlari = hisoblar.groupby("CustomerId")["Total"].sum().reset_index()
+
+mijozlar = pd.read_sql_query("SELECT CustomerId, FirstName, LastName FROM Customer", boglanish)
+
+mijoz_xaridlari = mijoz_xaridlari.merge(mijozlar, on="CustomerId")
+
+top_5_mijoz = mijoz_xaridlari.nlargest(5, "Total")
+
+
+faktura_mahsulotlar = pd.read_sql_query("SELECT InvoiceId, TrackId FROM InvoiceLine", boglanish)
+
+treklar = pd.read_sql_query("SELECT TrackId, AlbumId FROM Track", boglanish)
+
+faktura_albom = faktura_mahsulotlar.merge(treklar, on="TrackId")
+
+faktura_albom_soni = faktura_albom.groupby(["InvoiceId", "AlbumId"]).nunique()["TrackId"].reset_index()
+
+faktura_albom_soni["To'liqAlbom"] = faktura_albom_soni["TrackId"] > 5
+
+hisoblar = hisoblar.merge(faktura_albom_soni[["InvoiceId", "To'liqAlbom"]], on="InvoiceId")
+
+mijoz_turlari = hisoblar.groupby("CustomerId")["To'liqAlbom"].any().reset_index()
+mijoz_turlari["Xarid_turi"] = mijoz_turlari["To'liqAlbom"].map({True: "To‘liq albom", False: "Yakka treklar"})
+
+xulosa = mijoz_turlari["Xarid_turi"].value_counts(normalize=True) * 100
+
+print(" Eng ko‘p xarid qilgan 5 mijoz\n")
+for _, qator in top_5_mijoz.iterrows():
+    print(qator["FirstName"], qator["LastName"], qator["Total"])
+
+print("\n Albom yoki yakka trek xarid qilish bo‘yicha foizlar:\n")
+for tur, foiz in xulosa.items():
+    print(tur, round(foiz, 2), "%")
