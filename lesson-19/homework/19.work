@@ -1,0 +1,70 @@
+import pandas as pd
+import sqlite3
+
+savdo_df = pd.read_csv("task/sales_data.csv")
+
+kat_stat = savdo_df.groupby("Category").agg(
+    Total_Quantity=("Quantity", "sum"),
+    Avg_Price=("Price", "mean"),
+    Max_Quantity=("Quantity", "max")
+).reset_index()
+
+top_mahsulot = savdo_df.groupby(["Category", "Product"])["Quantity"].sum().reset_index()
+top_mahsulot = top_mahsulot.loc[top_mahsulot.groupby("Category")["Quantity"].idxmax()]
+
+savdo_df["Total_Sales"] = savdo_df["Quantity"] * savdo_df["Price"]
+eng_kop_savdo_kuni = savdo_df.groupby("Date")["Total_Sales"].sum().idxmax()
+
+
+
+buyurtma_df = pd.read_csv("task/customer_orders.csv")
+
+katta_mijozlar = buyurtma_df.groupby("CustomerID").filter(lambda x: len(x) >= 20)
+
+qimmat_mijozlar = buyurtma_df.groupby("CustomerID").filter(lambda x: x["Price"].mean() > 120)
+
+mahsulot_stat = buyurtma_df.groupby("Product").agg(
+    Total_Quantity=("Quantity", "sum"),
+    Total_Price=("Price", "sum")
+).reset_index()
+
+katta_mahsulotlar = mahsulot_stat[mahsulot_stat["Total_Quantity"] >= 5]
+
+conn = sqlite3.connect("task/population.db")
+
+aholi_df = pd.read_sql_query("SELECT * FROM population", conn)
+
+maosh_df = pd.read_excel("task/population salary analysis.xlsx")
+
+aholi_df["Salary_Category"] = pd.cut(
+    aholi_df["Salary"],
+    bins=[0, 1000, 5000, 10000, float("inf")],
+    labels=["$0-$1000", "$1000-$5000", "$5000-$10000", "$10000+"]
+)
+
+maosh_stat = aholi_df.groupby("Salary_Category").agg(
+    Population_Count=("Salary", "count"),
+    Avg_Salary=("Salary", "mean"),
+    Median_Salary=("Salary", "median")
+).reset_index()
+
+jami_aholi = maosh_stat["Population_Count"].sum()
+
+maosh_stat["Population_Percentage"] = (maosh_stat["Population_Count"] / jami_aholi * 100).round(1)
+
+shtat_stat = aholi_df.groupby(["State", "Salary_Category"]).agg(
+    Population_Count=("Salary", "count"),
+    Avg_Salary=("Salary", "mean"),
+    Median_Salary=("Salary", "median")
+).reset_index()
+
+
+print("Kategoriya bo‘yicha statistikalar:\n", kat_stat, "\n")
+print("Har bir kategoriyada eng ko‘p sotilgan mahsulot:\n", top_mahsulot, "\n")
+print(" Eng ko‘p savdo qilingan sana:", eng_kop_savdo_kuni, "\n")
+print(" 20 tadan ko‘p buyurtma qilgan mijozlar:\n", katta_mijozlar["CustomerID"].nunique(), "ta mijoz\n")
+print(" O‘rtacha narxi $120 dan yuqori bo‘lgan mahsulotlarni olgan mijozlar:\n", qimmat_mijozlar["CustomerID"].nunique(), "ta mijoz\n")
+print("5 tadan ko‘p sotilgan mahsulotlar:\n", katta_mahsulotlar, "\n")
+print(" Har bir maosh toifasi bo‘yicha statistika:\n", maosh_stat, "\n")
+print(" Har bir shtat bo‘yicha hisob-kitoblar:\n", shtat_stat, "\n")
+
